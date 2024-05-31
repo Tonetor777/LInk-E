@@ -1,145 +1,88 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import logo from '../assets/logos.png'
+import logo from '../assets/logos.png';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    const [openNav, setOpenNav] = useState(false);
-    const [openAvatarDropdown, setOpenAvatarDropdown] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    const toggleNav = () => {
-        setOpenNav(!openNav);
-        setOpenAvatarDropdown(false);
-    };
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
-    const toggleAvatarDropdown = () => {
-        setOpenAvatarDropdown(!openAvatarDropdown);
-    };
-
-    const navList = () => {
-        return (
-            <>
-                <NavLink
-                    to="/"
-                    className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "text-blue-900" : ""
-                    }
-                >
-                    Home
-                </NavLink>
-                <NavLink
-                    to="/Event"
-                    className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "text-blue-900" : ""
-                    }
-                >
-                    Event
-                </NavLink>
-               
-                    <div onClick={toggleAvatarDropdown} className=" transition-all duration-500 ">
-                    <span className="cursor-pointer font-bold text-blue-500 ">Services</span>
-                    <div className={`absolute ${openAvatarDropdown ? 'block' : 'hidden'} bg-slate-300 rounded shadow-md mt-2 space-y-2 z-10`}>
-                        <div className='p-4 flex flex-col '>
-                            <NavLink to="/Birthday">Birthday</NavLink>
-                            <NavLink to="/grad">Graduation</NavLink>
-                            <NavLink to="/Concert">Concert</NavLink>
-                            <NavLink to="/Wedding">Wedding</NavLink>
-                            <NavLink to="/Funeral">Funeral</NavLink>
-                        </div>
-                    </div>
-                </div>
-                
-                <NavLink
-                    to="/Aboutus"
-                    className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "text-blue-900" : ""
-                    }
-                >
-                    About Us
-                </NavLink>
-            </>
-        );
-    };
-
-    return (
-        <header className="bg-slate-200 border-b-2 border-gray-200 ml-0  h-20 font-DM">
-            <div className="container    py-4 px-2 md:flex md:items-center md:justify-between">
-                <img src={logo} alt="" width={100} height={100} />
-                <div className="flex items-center justify-between">
-                    <a href="#" className="text-2xl font-semibold text-gray-800">
-                        <img className='w-20' src="WellnessFusion.png" alt="" />
-                    </a>
-                    <button
-                        onClick={toggleNav}
-                        className="block md:hidden border border-gray-600 p-2 rounded text-gray-600 hover:bg-gray-200 focus:outline-none focus:bg-gray-300"
-                    >
-                        <svg
-                            className={`w-6 h-6 ${openNav ? 'hidden' : 'block'}`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h16m-7 6h7"
-                            ></path>
-                        </svg>
-                        <svg
-                            className={`w-6 h-6 ${openNav ? 'block' : 'hidden'}`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M6 18L18 6M6 6l12 12"
-                            ></path>
-                        </svg>
-                    </button>
-                </div>
-                <nav className="hidden md:flex space-x-4">
-                    {navList()}
-                </nav>
-                <div
-                    className={`${openNav ? '' : 'hidden'
-                        } mt-4  bg-slate-400 flex flex-col gap-4 p-6  rounded `}
-                >
-                    {navList()}
-                </div>
-                <div className=" relative space-x-5 transition-all duration-500">
-                {localStorage.getItem('token') ? (
-                    <>
-                    <Link to="/profile">Profile</Link>
-                    <Link to="/logout">Log Out</Link>
-                  </>
-                ) : (
-                <NavLink
-                    to="/login"
-                    className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "text-blue-900" : ""
-                    }
-                >
-                    Log In
-                </NavLink>
-                 )}
-                <NavLink
-                    to="/register"
-                    className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "text-blue-900" : ""
-                    }
-                >
-                    Sign In
-                </NavLink>
-                </div>
+  return (
+    <nav className="bg-gray-800 bg-opacity-95 fixed w-[100%] top-0">
+      <div className="w-100 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-5 h-16">
+          <div className="flex items-center justify-between w-[100%]">
+            <div className="flex-shrink-0">
+              <Link to="/">
+                <img
+                  className="h-12 w-40"
+                  src={logo}
+                  alt="Workflow"
+                />
+              </Link>
             </div>
-        </header>
-    );
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-center justify-center space-x-4">
+                <Link to="/" className="text-white px-3 py-2 rounded-md text-sm font-medium">
+                 Home
+                </Link>
+                <Link to="/events" className="text-white px-3 py-2 rounded-md text-sm font-medium">
+                  Events
+                </Link>
+                <Link to="/aboutus" className="text-white px-3 py-2 rounded-md text-sm font-medium">
+                  About Us
+                </Link>
+                <Link to="/login">
+                  <button className=" bg-blue-500 hover:bg-blue-700 text-gray-300 px-4 py-2 rounded-lg text-sm font-bold">Login</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="-mr-2 flex md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md bg-gray-700  text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <Link to="/">
+            <label className="text-white block px-3 py-2 rounded-md text-base font-medium">Home</label>
+          </Link>
+          <Link to="/events">
+            <label className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Events</label>
+          </Link>
+          <Link to="/about">
+            <label className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About Us</label>
+          </Link>
+          <Link to="/login">
+                  <button className=" bg-blue-500 hover:bg-blue-700 text-gray-300 px-4 py-2 rounded-lg text-sm font-bold">Login</button>
+                </Link>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

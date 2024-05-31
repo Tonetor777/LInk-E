@@ -14,44 +14,29 @@ import cake3 from "../assets/Images/birthday/cake3.jpg";
 export default function Home() {
   return (
     <>
-   <div className="head">
-      <div className="head_text">
-        <img
-         src={logo}
-          width="200px"
-          alt="logo"
-        />
-        
-        <p>
+   <div className="head h-[300px] pt-[50px]">
+      <div className="flex flex-col items-center justify-center gap-4 ">
+        <p className=' sm:w-[80%] md:w-[60%] font-extrabold font-mono lg:text-4xl  md:text-2xl text-xl text-center'>
+          Find the Perfect Services for Your Event
+        </p>
+        <p className='w-[60%] font-semibold font-sans lg:text-2xl  md:text-lg sm:text-sm text-center hidden lg:block'>
           Discover a world of seamless event planning with our platform.
           Connecting you with a curated network of top-notch service providers,
           we make every moment memorable.
         </p>
-        
-         <div className='one'>
-         <div className='two'>
+      
+         <div className=' flex justify-center gap-2 md:mt-8'>
           <input
-            className="search"
+            className="search rounded-md h-10 md:w-[350px] md:h-12"
             type="search"
             placeholder="Search Services"
             aria-label="Search"
           />
-           </div>
-           <div className='two'>
-          <button className="button" type="submit">
+          <button className="bg-blue-600 h-10 md:h-12 rounded-md" type="submit">
             Search
           </button>
           </div>
-          </div>
       </div >
-      <div className="head_text">
-      <img
-        className="head_img"
-        src={logo}
-        width="200px"
-        alt="logo"
-      />
-      </div>
       </div>
     
   

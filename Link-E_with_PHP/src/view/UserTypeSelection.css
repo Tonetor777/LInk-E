@@ -1,0 +1,23 @@
+.containerStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  font-size: 25px;
+}
+.containerStyle h1 {
+  margin: 13px;
+}
+.buttonStyle {
+  margin: 2px;
+  min-width: 250px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}

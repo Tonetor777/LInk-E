@@ -4,7 +4,7 @@ function SignupFormCustomer() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    birthdate: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
   });
@@ -22,11 +22,14 @@ function SignupFormCustomer() {
     }
 
     const response = await fetch(
-      "http://localhost:8000/signup.php?type=customer",
+      "http://localhost:8000/signup.php",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          type: "customer"
+        }),
       }
     );
 
@@ -39,7 +42,7 @@ function SignupFormCustomer() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={formStyle}>
+    <form onSubmit={handleSubmit} style={formStyle} className="">
       <h2>Signup - Customer</h2>
       <input
         type="text"
@@ -58,11 +61,11 @@ function SignupFormCustomer() {
         required
       />
       <input
-        type="date"
-        name="birthdate"
-        value={formData.birthdate}
+        type="text"
+        name="phoneNumber"
+        value={formData.phoneNumber}
         onChange={handleChange}
-        placeholder="Birthdate"
+        placeholder="Phone Number"
         required
       />
       <input

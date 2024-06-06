@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,  useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 import "./LoginForm.css";
 
 function LoginForm() {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,21 +20,24 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    fetch("http://localhost:8000/PHP/login.php", {
+    console.log(userType)
+    fetch("http://localhost:8000/login.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        ...formData, 
+      type: userType
+    }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           alert(data.error);
         } else {
+          navigate("/check");
           alert(data.message);
-          // Handle successful login, e.g., redirect to another page
         }
       })
       .catch((error) => {

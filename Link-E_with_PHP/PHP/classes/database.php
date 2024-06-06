@@ -89,5 +89,3 @@ if ($conn->multi_query($sql) === TRUE) {
 } else {
     echo "Error creating tables: " . $conn->error . "\n";
 }
-
-$conn->close();

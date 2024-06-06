@@ -1,31 +1,52 @@
 <?php
+include_once 'classes/db_config.php';
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type"); 
-
-include 'config.php';
+header("Access-Control-Allow-Headers: Content-Type");
 
 $data = json_decode(file_get_contents("php://input"), true);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $companyName = $data['companyName'];
-    $email = $data['email'];
-    $address = $data['address'];
-    $eventType = $data['eventType'];
-    $specificService = $data['specificService'];
-    $password = password_hash($data['password'], PASSWORD_DEFAULT);
+    $userType = $data['type'];
 
-    $sql = "INSERT INTO Service_Providers (companyName, email, address, eventType, specificService, password) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssss", $companyName, $email, $address, $eventType, $specificService, $password);
+    if ($userType === "customer") {
+        $fullName = $data['fullName'];
+        $email = $data['email'];
+        $phone = $data['phoneNumber'];
+        $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
-    if ($stmt->execute()) {
-        echo json_encode(["message" => "User registered successfully"]);
+        $sql = "INSERT INTO Customer (FullName, Email, Phone, Password) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $fullName, $email, $phone, $password);
+
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "Customer registered successfully"]);
+        } else {
+            echo json_encode(["error" => "Error: " . $stmt->error]);
+        }
+        $stmt->close();
     } else {
-        echo json_encode(["error" => "Error: " . $sql . "<br>" . $conn->error]);
+        $companyName = $data['companyName'];
+        $email = $data['email'];
+        $address = $data['address'];
+        $eventType = $data['eventType'];
+        $specificService = $data['specificService'];
+        $password = password_hash($data['password'], PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO Service_Providers (companyName, email, address, eventType, specificService, password) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssss", $companyName, $email, $address, $eventType, $specificService, $password);
+
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "Service provider registered successfully"]);
+        } else {
+            echo json_encode(["error" => "Error: " . $stmt->error]);
+        }
+        $stmt->close();
     }
 
-    $stmt->close();
     $conn->close();
+} else {
+    echo json_encode(["error" => "Invalid request"]);
 }
-?>

@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "mysql@101";
+$password = "Tagmr@1228";
 $dbname = "ip2";
 
 $conn = new mysqli($servername, $username, $password);
@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS ServiceProvider (
     ProviderID INT PRIMARY KEY AUTO_INCREMENT,
     BusinessName VARCHAR(100),
     ServiceType VARCHAR(100),
+    SpecificService VARCHAR(100),
     Email VARCHAR(100),
     Phone VARCHAR(20),
     Address VARCHAR(255),

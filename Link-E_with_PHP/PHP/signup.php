@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $specificService = $data['specificService'];
         $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO Service_Providers (companyName, email, address, eventType, specificService, password) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO ServiceProvider (BusinessName, Email, Address, ServiceType, SpecificService, password) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssssss", $companyName, $email, $address, $eventType, $specificService, $password);
 

@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "mysql@101";
+$password = "Tagmr@1228";
 $dbname = "ip2";
 
 

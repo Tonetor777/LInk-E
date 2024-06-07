@@ -1,5 +1,3 @@
-// SignupFormServiceProvider.jsx
-
 import React, { useState } from "react";
 import "./SignupForm.css";
 
@@ -19,27 +17,28 @@ function SignupFormServiceProvider() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
-    fetch("http://localhost:8000/PHP/signup.php", {
+    const response = await fetch("http://localhost:8000/signup.php", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...formData,
+        type: "Service-provider",
+      }),
+    });
+
+    if (response.ok) {
+      console.log("Signup successful");
+      // Redirect or handle successful signup
+    } else {
+      console.error("Signup failed");
+    }
   };
 
   return (

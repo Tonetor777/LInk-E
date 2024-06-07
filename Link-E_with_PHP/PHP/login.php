@@ -24,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_result($id, $fullName, $email, $phone, $hashed_password);
         $stmt->fetch();
     } else {
-        $sql = "SELECT ProviderID, BusinessName, Email, Phone, Address, Password FROM ServiceProvider WHERE Email = ?";
+        $sql = "SELECT ProviderID, BusinessName, Email, Address, ServiceType, SpecificService, password FROM ServiceProvider WHERE Email = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
-        $stmt->bind_result($id, $businessName, $email, $phone, $address, $hashed_password);
+        $stmt->bind_result($id, $businessName, $email, $address,$serviceType,$specificservice, $hashed_password);
         $stmt->fetch();
     }
 

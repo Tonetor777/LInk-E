@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate , Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 function SignupFormCustomer() {
+
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -35,13 +39,15 @@ function SignupFormCustomer() {
 
     if (response.ok) {
       console.log("Signup successful");
-      // Redirect or handle successful signup
+      navigate("/signin")
     } else {
       console.error("Signup failed");
     }
   };
 
   return (
+    <>
+    <Navbar />
     <form onSubmit={handleSubmit} style={formStyle} className="">
       <h2>Signup - Customer</h2>
       <input
@@ -84,8 +90,11 @@ function SignupFormCustomer() {
         placeholder="Confirm Password"
         required
       />
-      <button type="submit">Signup</button>
+      <button className="bg-blue-700 mt-4" type="submit">Signup</button>
+
+      <label className="mt-4"> Already have an account? <Link to="/signin" className="text-blue-600 font-semibold"> Sign In</Link> </label>
     </form>
+    </>
   );
 }
 

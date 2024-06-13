@@ -8,10 +8,12 @@ import ruthamenu from "../assets/Images/about_us/ruthamenu.jpg";
 import ruthtadesse from "../assets/Images/about_us/ruthtadess.jpg";
 import ruthzenabu from "../assets/Images/about_us/ruthzenabu.jpg";
 import salem from "../assets/Images/about_us/salem.jpg";
-
+import Navbar from './Navbar';
+import Footer from './Footer';
 export default function Aboutus() {
   return (
     <>
+    <Navbar />
     <title>About us</title>
     <header>
       <section className="about_us_head">
@@ -119,6 +121,7 @@ export default function Aboutus() {
         </div>
       </div>
     </main>
+    <Footer />
   </>
   )
 }

@@ -1,5 +1,4 @@
-// UserContext.js
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import  { createContext, useContext, useEffect, useState } from 'react';
 
 const UserContext = createContext();
 
@@ -19,11 +18,12 @@ export const UserProvider = ({ children }) => {
 
         const data = await response.json();
 
-        if (data.user) {
-          setUser(data.user);
+        if (data) {
+          setUser(data);
         } else {
           console.error(data.error);
         }
+        console.log(data)
       } catch (error) {
         console.error('Error fetching session:', error);
       }
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
 
     fetchSession();
   }, []);
-
+  console.log(user)
   return (
     <UserContext.Provider value={user}>
       {children}

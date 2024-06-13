@@ -2,13 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./UserTypeSelection.css";
-
+import Navbar from "./Navbar";
 function UserTypeSelection() {
   const handleSelection = (userType) => {
     Cookies.set("userType", userType, { expires: 7 });
   };
 
   return (
+    <>
+    <Navbar />
     <div className="containerStyle">
       <h1>Which type of account do you want to sign in to?</h1>
       <Link to="/signin?type=customer">
@@ -18,6 +20,7 @@ function UserTypeSelection() {
         <button className="buttonStyle" onClick={() => handleSelection("service-provider")}>Service Provider</button>
       </Link>
     </div>
+    </>
   );
 }
 

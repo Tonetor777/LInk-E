@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="flex items-center gap-5 h-16">
           <div className="flex items-center justify-between w-[100%]">
             <div className="flex-shrink-0">
-              <Link to="/">
+              <Link to="/dashboard">
                 <img
                   className="h-12 w-40 ml-5"
                   src={logo}
@@ -25,13 +25,10 @@ const Navbar = () => {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-center justify-center space-x-4">
-                <Link to="/" className="text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link to="/dashboard" className="text-white px-3 py-2 rounded-md text-sm font-medium">
                  Dashboard
                 </Link>
-                <Link to="/events" className="text-white px-3 py-2 rounded-md text-sm font-medium">
-                Service Lising
-                </Link>
-                <Link to="/aboutus" className="text-white px-3 py-2 rounded-md text-sm font-medium">
+                <Link to="/gallery" className="text-white px-3 py-2 rounded-md text-sm font-medium">
                 Gallery
                 </Link>
                 

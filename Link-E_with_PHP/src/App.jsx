@@ -22,6 +22,8 @@ import FAQ from "./view/FAQ";
 import Funeral from "./view/Funeral";
 import Aboutus from "./view/Aboutus";
 import Dashboard from "./serviceproviders/Dashboard.jsx";
+import ProfilePage from "./serviceproviders/Profile.jsx";
+import Gallery from "./serviceproviders/Gallery.jsx";
 import Check from "./Check.jsx";
 import { UserProvider , useUser } from "./view/UserContext.jsx";
 
@@ -38,7 +40,6 @@ function App() {
   return (
     <div className="App">
       <UserProvider>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -53,7 +54,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/confirm" element={<AccountConfirm />} />
         <Route path="/reset" element={<ResetPassword />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/Birthday" element={<Birthday />} />
         <Route path="/Concert" element={<Concert />} />

@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS Customer (
 CREATE TABLE IF NOT EXISTS ServiceProvider (
     ProviderID INT PRIMARY KEY AUTO_INCREMENT,
     BusinessName VARCHAR(100),
+    Description VARCHAR(255),
     ServiceType VARCHAR(100),
     SpecificService VARCHAR(100),
     Email VARCHAR(100),

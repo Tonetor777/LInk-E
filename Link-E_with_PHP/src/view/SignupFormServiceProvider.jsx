@@ -99,6 +99,26 @@ function SignupFormServiceProvider() {
       </label>
       <br />
       <label>
+        Phone Number:
+        <input
+          type="text"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+        />
+      </label>
+      <br />
+      <label>
+        <label>
+          Description:
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
         Password:
         <input
           type="password"

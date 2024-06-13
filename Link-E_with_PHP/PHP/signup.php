@@ -32,11 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $address = $data['address'];
         $eventType = $data['eventType'];
         $specificService = $data['specificService'];
+        $description = $data['description'];
+        $phone = $data['phone'];
         $password = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO ServiceProvider (BusinessName, Email, Address, ServiceType, SpecificService, password) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO ServiceProvider (BusinessName, Email, Address, ServiceType, SpecificService, Password, Phone , Description) VALUES (?, ?, ?, ?, ?, ?, ? , ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssss", $companyName, $email, $address, $eventType, $specificService, $password);
+        $stmt->bind_param("ssssssss", $companyName, $email, $address, $eventType, $specificService, $password,$phone,$description);
 
         if ($stmt->execute()) {
             echo json_encode(["message" => "Service provider registered successfully"]);

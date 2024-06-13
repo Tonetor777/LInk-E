@@ -6,7 +6,7 @@ import concert  from "../assets/Images/home_page/concert.jpg";
 import graduation  from "../assets/Images/home_page/graduation.jpg";
 import wedding  from "../assets/Images/home_page/wedding.jpg";
 import cake3 from "../assets/Images/birthday/cake3.jpg";
-
+import Navbar from './Navbar';
 
 
 
@@ -14,6 +14,7 @@ import cake3 from "../assets/Images/birthday/cake3.jpg";
 export default function Home() {
   return (
     <>
+   <Navbar />
    <div className="head h-[300px] pt-[50px] scroll-smooth">
       <div className="flex flex-col items-center justify-center gap-4 ">
         <p className=' sm:w-[80%] md:w-[60%] font-extrabold font-mono lg:text-4xl  md:text-2xl text-xl text-center'>

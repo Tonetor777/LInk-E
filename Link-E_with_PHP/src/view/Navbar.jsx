@@ -1,12 +1,34 @@
 import logo from '../assets/logos.png';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useUser } from './UserContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const userData = useUser()
+  const user = userData ? userData.user : null;
+  console.log(user)
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/logout.php', {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        console.log('User logged out');
+        window.location.reload(); 
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (
@@ -34,9 +56,22 @@ const Navbar = () => {
                 <Link to="/aboutus" className="text-white px-3 py-2 rounded-md text-sm font-medium">
                   About Us
                 </Link>
-                <Link to="/login">
-                  <button className=" bg-blue-500 hover:bg-blue-700 text-gray-300 px-4 py-2 rounded-lg text-sm font-bold">Login</button>
-                </Link>
+                {user ? (
+                  <>
+                    <div className="text-white px-3 py-2 rounded-md text-sm font-medium">
+                      Welcome, {user.name}
+                    </div>
+                    <button onClick={handleLogout} className="bg-blue-500 hover:bg-blue-700 text-gray-300 px-4 py-2 rounded-lg text-sm font-bold">
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <Link to="/login">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-gray-300 px-4 py-2 rounded-lg text-sm font-bold">
+                      Login
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

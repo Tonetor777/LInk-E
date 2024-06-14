@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link,  useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 import "./LoginForm.css";
+import Navbar from "./Navbar";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -30,14 +31,20 @@ function LoginForm() {
         ...formData, 
       type: userType
     }),
+      credentials: 'include'
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
           alert(data.error);
         } else {
-          navigate("/check");
-          alert(data.message);
+          {userType === "customer" ? (
+            navigate("/")
+          ) : userType === "service-provider" ? (
+            navigate("/dashboard")
+          ) : (
+            "Please select a user type first"
+          )}
         }
       })
       .catch((error) => {
@@ -46,11 +53,13 @@ function LoginForm() {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="login-container">
-      <h2 className="login-title">Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label className="login-label">
-          Email:
+      <h2 className="login-title text-2xl font-bold">Login</h2>
+      <form onSubmit={handleSubmit} className="">
+        <label className="font-semibold">
+          Email: </label>
           <input
             className="login-input"
             type="email"
@@ -59,9 +68,9 @@ function LoginForm() {
             onChange={handleChange}
             required
           />
-        </label>
-        <label className="login-label">
-          Password:
+        
+        <label className="login-label font-semibold">
+          Password: </label>
           <input
             className="login-input"
             type="password"
@@ -70,10 +79,11 @@ function LoginForm() {
             onChange={handleChange}
             required
           />
-        </label>
-        <button className="login-button" type="submit">
+        <div className="flex justify-center mt-5">
+        <button className="login-button w-[100px]" type="submit">
           Login
         </button>
+        </div>
       </form>
       <p className="signup-text">
         Don't have an account?{" "}
@@ -90,6 +100,7 @@ function LoginForm() {
         )}
       </p>
     </div>
+    </>
   );
 }
 

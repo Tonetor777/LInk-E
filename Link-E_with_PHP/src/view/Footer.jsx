@@ -1,6 +1,6 @@
 
 import React from "react";
-export default function Footer(){
+function Footer(){
     return (
         <div className="relative mt-16 bg-blue-700">
           <svg
@@ -249,4 +249,6 @@ export default function Footer(){
           </div>
         </div>
       );
-  };
+  }
+
+  export default Footer

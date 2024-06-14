@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import './Home.css';
 import logo from '../assets/logos.png'
 import funeral  from "../assets/Images/home_page/funeral.jpg";
@@ -7,7 +8,7 @@ import graduation  from "../assets/Images/home_page/graduation.jpg";
 import wedding  from "../assets/Images/home_page/wedding.jpg";
 import cake3 from "../assets/Images/birthday/cake3.jpg";
 import Navbar from './Navbar';
-
+import Footer from './Footer';
 
 
 
@@ -62,11 +63,11 @@ export default function Home() {
           your special day into a cherished masterpiece, leaving you free to
           savor each moment of joy, love, and celebration
         </p>
-        <a href="/wedding">
+        <Link to="/services/Wedding">
           <button className="button explore" type="submit">
             EXPLORE
           </button>
-        </a>
+        </Link>
       </div>
     </section>
     <section className="birthday blue">
@@ -84,11 +85,11 @@ export default function Home() {
           is a seamless and joyous experience. With our personalized approach,
           every birthday becomes a cherished memory waiting to be created
         </p>
-        <a href="/birthday">
+        <Link to="/services/Birthday">
           <button className="button explore" type="submit">
             EXPLORE
           </button>
-        </a>
+        </Link>
       </div>
       <img
         className="services_img"
@@ -116,11 +117,11 @@ export default function Home() {
           us set the stage for your musical masterpiece, ensuring an
           unforgettable concert experience for performers and audiences alike
         </p>
-        <a href="/concert">
+        <Link to="/services/Concert">
           <button className="button explore" type="submit">
             EXPLORE
           </button>
-        </a>
+        </Link>
       </div>
     </section>
     <section className="funeral blue">
@@ -136,7 +137,7 @@ export default function Home() {
           grief, let us be your pillar of strength, providing compassion and
           support to ease the journey of saying goodbye.
         </p>
-        <a href="/funeral">
+        <a href="/Funeral">
           <button className="button explore" type="submit">
             EXPLORE
           </button>
@@ -168,11 +169,11 @@ export default function Home() {
           momentous occasion filled with joy, recognition, and the anticipation
           of exciting possibilities ahead.
         </p>
-        <a href="/graduation">
+        <Link to="/services/Graduation">
           <button className="button explore" type="submit">
             EXPLORE
           </button>
-        </a>
+        </Link>
       </div>
     </section>
     <section className="login">
@@ -220,6 +221,7 @@ export default function Home() {
       </div>
     </section>
   </main>
+  <Footer />
 </>
   )
 }

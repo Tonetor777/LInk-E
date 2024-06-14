@@ -24,6 +24,7 @@ import Aboutus from "./view/Aboutus";
 import Dashboard from "./serviceproviders/Dashboard.jsx";
 import ProfilePage from "./serviceproviders/Profile.jsx";
 import Gallery from "./serviceproviders/Gallery.jsx";
+import ServiceListing from "./view/Services.jsx";
 import Check from "./Check.jsx";
 import { UserProvider , useUser } from "./view/UserContext.jsx";
 
@@ -43,7 +44,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/login" element={<UserTypeSelection />} />
         <Route path="/signin" element={<LoginForm />} />
         <Route path="/signup-customer" element={<SignupFormCustomer />} />
@@ -58,6 +58,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/Birthday" element={<Birthday />} />
+        <Route path="/services/:eventType" element={<ServiceListing/>} />
         <Route path="/Concert" element={<Concert />} />
         <Route path="/Wedding" element={<Wedding />} />
         <Route path="/Event" element={<Event />} />

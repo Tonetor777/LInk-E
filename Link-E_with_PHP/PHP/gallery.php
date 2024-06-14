@@ -1,23 +1,29 @@
 <?php
 include_once 'classes/db_config.php';
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods:  GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Origin: http://localhost:8001");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header('Content-Type: application/json');
+
+
 
 $method = $_SERVER['REQUEST_METHOD'];
-
 
 if ($method == "OPTIONS") {
     header("HTTP/1.1 200 OK");
     exit();
 }
-header('Content-Type: application/json');
+
 
 switch ($method) {
     case 'GET':
-        $sql = "SELECT * FROM PreviousWork";
-        $result = $conn->query($sql);
+        $providerID = isset($_GET['id']) ? $_GET['id'] : null;
+        $sql = "SELECT * FROM PreviousWork WHERE ProviderID = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $providerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $works = [];
         while ($row = $result->fetch_assoc()) {
             $works[] = $row;
@@ -26,10 +32,10 @@ switch ($method) {
         break;
 
     case 'POST':
-        if (isset($_FILES['ImageFile'])) {
-            $providerID = 1;
+        if (isset($_FILES['ImageFile']) && isset($_POST['Title']) && isset($_POST['Description'])) {
             $title = $_POST['Title'];
             $description = $_POST['Description'];
+            $providerID = $_POST['ProviderID'];
             $targetDir = "gallery/";
             $fileName = basename($_FILES['ImageFile']['name']);
             $targetFilePath = $targetDir . $fileName;
@@ -71,32 +77,44 @@ switch ($method) {
     case 'PUT':
         $data = json_decode(file_get_contents("php://input"));
         $workID = $data->WorkID;
-        $providerID = $data->ProviderID;
         $title = $data->Title;
         $description = $data->Description;
         $imageURL = $data->ImageURL;
 
-        $sql = "UPDATE PreviousWork SET ProviderID='$providerID', Title='$title', Description='$description', ImageURL='$imageURL' WHERE WorkID='$workID'";
-        if ($conn->query($sql) === TRUE) {
+        $sql = "UPDATE PreviousWork SET Title=?, Description=?, ImageURL=? WHERE WorkID=? AND ProviderID=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('sssii', $title, $description, $imageURL, $workID, $providerID);
+
+        if ($stmt->execute()) {
             echo json_encode(["message" => "Work updated successfully"]);
         } else {
-            echo json_encode(["message" => "Error: " . $sql . "<br>" . $conn->error]);
+            http_response_code(500);
+            echo json_encode(["message" => "Error updating work", "error" => $stmt->error]);
         }
+
+        $stmt->close();
         break;
 
     case 'DELETE':
         $data = json_decode(file_get_contents("php://input"));
         $workID = $data->WorkID;
+        $providerID = isset($_GET['id']) ? $_GET['id'] : null;
+        $sql = "DELETE FROM PreviousWork WHERE WorkID=? AND ProviderID=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $workID, $providerID);
 
-        $sql = "DELETE FROM PreviousWork WHERE WorkID='$workID'";
-        if ($conn->query($sql) === TRUE) {
+        if ($stmt->execute()) {
             echo json_encode(["message" => "Work deleted successfully"]);
         } else {
-            echo json_encode(["message" => "Error: " . $sql . "<br>" . $conn->error]);
+            http_response_code(500);
+            echo json_encode(["message" => "Error deleting work", "error" => $stmt->error]);
         }
+
+        $stmt->close();
         break;
 
     default:
+        http_response_code(405); // Method Not Allowed
         echo json_encode(["message" => "Method not supported"]);
         break;
 }
